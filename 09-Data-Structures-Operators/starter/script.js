@@ -1,27 +1,27 @@
 'use strict';
 
-// const restaurant = {
-//   name: 'Classico Italiano',
-//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
-//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-//   openingHours: {
-//     thu: {
-//       open: 12,
-//       close: 22,
-//     },
-//     fri: {
-//       open: 11,
-//       close: 23,
-//     },
-//     sat: {
-//       open: 0, // Open 24 hours
-//       close: 24,
-//     },
-//   },
-// };
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+};
 
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
@@ -174,33 +174,107 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 GOOD LUCK 😀
 */
 
+// // 1
+// for (const [goal, player] of game.scored.entries()) {
+//   console.log(`Goal: ${goal + 1}: ${player}`);
+// }
+
+// // 2
+// const gameOdds = Object.values(game.odds);
+// let gameAverage = 0;
+
+// for (const odd of gameOdds) {
+//   gameAverage += odd;
+// }
+// gameAverage /= gameOdds.length
+// console.log(`Game average odd is equal to: ${gameAverage}`);
+
+// // 3
+// for (const [item, value] of Object.entries(game.odds)) {
+//   const itemName = item === 'x' ? 'draw' : `victory ${game[item]}`;
+
+//   console.log(`Odd of ${itemName}: ${value}`);
+// }
+
+// // BONUS
+// const scorers = {};
+
+// for (const player of game.scored) {
+//   scorers[player] ? scorers[player]++ : (scorers[player] = 1)
+// }
+// console.log(scorers);
+
+
+///////////////////////////////////////
+// Maps: Iteration
+// const question = new Map([
+//   ['question', 'What is the best programming language in the world?'],
+//   [1, 'C'],
+//   [2, 'Java'],
+//   [3, 'JavaScript'],
+//   ['correct', 3],
+//   [true, 'Correct 🎉'],
+//   [false, 'Try again!'],
+// ]);
+// console.log(question);
+
+// // Convert object to map
+// console.log(Object.entries(restaurant.openingHours));
+// const hoursMap = new Map(Object.entries(restaurant.openingHours));
+// console.log(hoursMap);
+
+// // Quiz app
+// console.log(question.get('question'));
+// for (const [key, value] of question) {
+//   if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+// }
+// // const answer = Number(prompt('Your answer'));
+// const answer = 3;
+// console.log(question.get(question.get('correct') === answer));
+
+
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+
 // 1
-for (const [goal, player] of game.scored.entries()) {
-  console.log(`Goal: ${goal + 1}: ${player}`);
-}
+const events = [...new Set(gameEvents.values())];
+console.log(events);
 
 // 2
-const gameOdds = Object.values(game.odds);
-let gameAverage = 0;
-
-for (const odd of gameOdds) {
-  gameAverage += odd;
-}
-gameAverage /= gameOdds.length
-console.log(`Game average odd is equal to: ${gameAverage}`);
+gameEvents.delete(64);
+console.log(gameEvents);
 
 // 3
-for (const [item, value] of Object.entries(game.odds)) {
-  const itemName = item === 'x' ? 'draw' : `victory ${game[item]}`;
+console.log(`An event happened, on average, every ${90 / gameEvents.size} minutes.`);
 
-  console.log(`Odd of ${itemName}: ${value}`);
+// 4
+for (const [time, event] of gameEvents) {
+  let period =  time <= 45 ? '[FIRST HALF]' : '[SECOND HALF]';
+  console.log(`${period} ${time} : ${event}`);
 }
-
-// BONUS
-const scorers = {};
-
-for (const player of game.scored) {
-  scorers[player] ? scorers[player]++ : (scorers[player] = 1)
-}
-console.log(scorers);
-
