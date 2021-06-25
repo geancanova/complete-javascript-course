@@ -27,8 +27,11 @@
 
 // console.log(menu);
 
+
+///////////////////////////////////////
+// Coding Challenge #1
+
 /*
-Coding Challenge #1
 We're building a football betting app (soccer for my American friends 😅)!
 Suppose we get data from a web service about a certain game ('game' variable on
 next page). In this challenge we're gonna work with that data.
@@ -68,7 +71,7 @@ GOOD LUCK 😀
 
 const game = {
   team1: 'Bayern Munich',
-  team: 'Borussia Dortmund',
+  team2: 'Borussia Dortmund',
   players: [
     [
       'Neuer',
@@ -108,39 +111,96 @@ const game = {
 };
 
 // 1
-const [players1, players2] = game.players;
-console.log(players1);
-console.log(players2);
+// const [players1, players2] = game.players;
+// console.log(players1);
+// console.log(players2);
+
+// // 2
+// const [gk, ...fieldPlayers] = players1;
+// console.log(gk);
+// console.log(fieldPlayers);
+
+// // 3
+// const allPlayers = [...players1, ...players2];
+// console.log(allPlayers);
+
+// // 4
+// const players1Final = [...players1, 'Thiago', 'Coutinho', 'Periscic'];
+// console.log(players1Final);
+
+// // 5
+// // const {team1, x: draw, team2} = game.odds; my guess for the challenge (this works too)
+// const {odds: {team1, x: draw, team2}} = game; // Challenge resolution for this item
+// console.log(team1);
+// console.log(draw);
+// console.log(team2);
+
+// // 6
+// function printGoals(...playerNames) {
+//   console.log(`${playerNames} scored a total of ${playerNames.length} goals.`);
+// };
+// printGoals(...game.scored);
+
+// // test Data
+// printGoals('Davies', 'Muller', 'Kimmich', ...game.scored);
+
+// // 7
+// team1 < team2 && console.log('Team 1 is more likely to win.');
+// team1 > team2 && console.log('Team 1 is more likely to win.');
+
+
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*/
+
+// 1
+for (const [goal, player] of game.scored.entries()) {
+  console.log(`Goal: ${goal + 1}: ${player}`);
+}
 
 // 2
-const [gk, ...fieldPlayers] = players1;
-console.log(gk);
-console.log(fieldPlayers);
+const gameOdds = Object.values(game.odds);
+let gameAverage = 0;
+
+for (const odd of gameOdds) {
+  gameAverage += odd;
+}
+gameAverage /= gameOdds.length
+console.log(`Game average odd is equal to: ${gameAverage}`);
 
 // 3
-const allPlayers = [...players1, ...players2];
-console.log(allPlayers);
+for (const [item, value] of Object.entries(game.odds)) {
+  const itemName = item === 'x' ? 'draw' : `victory ${game[item]}`;
 
-// 4
-const players1Final = [...players1, 'Thiago', 'Coutinho', 'Periscic'];
-console.log(players1Final);
+  console.log(`Odd of ${itemName}: ${value}`);
+}
 
-// 5
-// const {team1, x: draw, team2} = game.odds; my guess for the challenge (this works too)
-const {odds: {team1, x: draw, team2}} = game; // Challenge resolution for this item
-console.log(team1);
-console.log(draw);
-console.log(team2);
+// BONUS
+const scorers = {};
 
-// 6
-function printGoals(...playerNames) {
-  console.log(`${playerNames} scored a total of ${playerNames.length} goals.`);
-};
-printGoals(...game.scored);
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1)
+}
+console.log(scorers);
 
-// test Data
-printGoals('Davies', 'Muller', 'Kimmich', ...game.scored);
-
-// 7
-team1 < team2 && console.log('Team 1 is more likely to win.');
-team1 > team2 && console.log('Team 1 is more likely to win.');
