@@ -261,7 +261,7 @@ const gameEvents = new Map([
   [80, '⚽️ GOAL'],
   [92, '🔶 Yellow card'],
 ]);
-
+/*
 // 1
 const events = [...new Set(gameEvents.values())];
 console.log(events);
@@ -278,3 +278,87 @@ for (const [time, event] of gameEvents) {
   let period =  time <= 45 ? '[FIRST HALF]' : '[SECOND HALF]';
   console.log(`${period} ${time} : ${event}`);
 }
+*/
+
+
+/*
+// String Exercises
+*/
+/*
+const capitalizeName = function(name) {
+  const names = name.toLowerCase().split(' ');
+  const correctNames = [];
+
+  for (const n of names) {
+    // correctNames.push( n[0].toUpperCase() + n.slice(1));
+    correctNames.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+
+  return correctNames.join(' ');
+}
+
+console.log(capitalizeName('maRia das doREs fERNandes camacho'));
+
+
+// Padding
+const maskCreditCard = function(number) {
+  const str = number + '';
+  const lastDigits = str.slice(-4);
+
+  return lastDigits.padStart(str.length, '*');
+}
+
+console.log(maskCreditCard(2466897445675677));
+console.log(maskCreditCard('3464575686796764756776989'));
+*/
+
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+
+// My challenge resolution 
+document.querySelector('button').addEventListener('click', function() {
+  const text = document.querySelector('textarea').value;
+  const words = text.split('\n'); // removes line breaks and turn string words to array
+
+  for (const [i, word] of words.entries()) {
+    const [firstWord, secondWord] = word.toLowerCase().trim().split('_'); // lower case, remove white spaces at beginning and end, split at underscore to array
+    const camelCaseWords = `${firstWord}${secondWord.replace(secondWord[0], secondWord[0].toUpperCase())}`;
+
+    console.log(`${camelCaseWords.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
+
+});
