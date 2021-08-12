@@ -1,5 +1,8 @@
 'use strict';
 
+///////////////////////////////////////
+// Constructor Functions and the new Operator
+/*
 const Person = function (firstName, birthYear) { // constructor function
     // Instance properties
     this.firstName = firstName;
@@ -29,7 +32,15 @@ const jay = 'Jay';
 console.log(jack instanceof Person) // true
 console.log(jay instanceof Person) // false
 
-// prototypes
+Person.hey = function () {
+    console.log('Hey there 👋');
+    console.log(this);
+}
+Person.hey();
+// geancarlo.hey(); // undefined (hey is not in Person prototype)
+
+///////////////////////////////////////
+// Prototypes
 console.log(Person.prototype);
 
 Person.prototype.calcAge = function () {
@@ -44,12 +55,16 @@ console.log(geancarlo.__proto__ === Person.prototype); // true
 console.log(Person.prototype.isPrototypeOf(geancarlo)); // true
 console.log(Person.prototype.isPrototypeOf(Person)); // false
 
+// .prototyeOfLinkedObjects
+
 Person.prototype.species = 'Homo Sapiens';
 console.log(matilda.species, jack.species); // Homo Sapiens, Homo Sapiens
 
 console.log(matilda.hasOwnProperty('firstName')); // true
 console.log(matilda.hasOwnProperty('species')); // false
 
+///////////////////////////////////////
+// Prototypal Inheritance on Built-In Objects
 console.log(geancarlo.__proto__.__proto__); // Object.prototype (top of prototype chain)
 console.log(geancarlo.__proto__.__proto__.__proto__); // null
 
@@ -70,6 +85,7 @@ console.log(arr.unique()); // [3, 6, 9, 12, 15, 18]
 const title = document.querySelector('h1');
 console.dir(title); // Prototype chain: HTMLHeadingElement => HTMLElement => Element => Node => EventTarget => object
 console.dir(x => x = 1); // Prototype contains functions methods
+*/
 
 ///////////////////////////////////////
 // Coding Challenge #1
@@ -85,7 +101,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 
 GOOD LUCK 😀
 */
-
+/*
 const Car = function (make, speed) {
     this.make = make;
     this.speed = speed
@@ -134,3 +150,115 @@ car2.brake();
 car2.brake();
 car2.brake();
 car2.brake();
+*/
+
+///////////////////////////////////////
+// ES6 Classes
+
+// Class expression
+// const PersonCl = class {}
+
+// Class declaration
+/*
+class PersonCL {
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+
+    // Instance methods
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    }
+
+    greet() {
+        console.log(`Hey ${this.fullName}`);
+    }
+
+    get age() {
+        return 2037 - this.birthYear;
+    }
+
+    // Set a property that already exists
+    set fullName(name) {
+        if (name.includes(' ')) this._fullName = name; // underescore as a convention to prevent error when uses a property that already exists
+        else alert(`${name} is not a full name!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
+
+    // Static method
+    static hey() {
+        console.log('Hey there 👋');
+        console.log(this);
+    }
+}
+
+const jessica = new PersonCL('Jessica Davis', 1996);
+console.log(jessica);
+jessica.calcAge();
+console.log(jessica.age);
+
+console.log(jessica.__proto__ === PersonCL.prototype); // true
+
+// PersonCL.prototype.greet = function () {
+//     console.log(`Hey ${this.firstName}`);
+// }
+jessica.greet();
+
+// 1. Classes are NOT hoisted (can't be used before are declared in code (function declarations can))
+// 2. Classes are first-class citizens (we can pass them into functions and also return them from functions)
+// 3. Classes are executed in strict mode
+
+const walter = new PersonCL('Walter White', 1965);
+
+PersonCL.hey();
+*/
+
+///////////////////////////////////////
+// Setters and Getters
+/*
+const account = {
+    owner: 'jonas',
+    movements: [200, 400, 120, 700],
+
+    get latest() {
+        return this.movements.slice(-1).pop();
+    },
+
+    set latest(mov) {
+        this.movements.push(mov);
+    }
+}
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
+*/
+/*
+const PersonProto = {
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+}
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 1985;
+steven.calcAge();
+console.log(steven.__proto__ === PersonProto); // true
+
+const sarah = Object.create(PersonProto); // PersonProto is now Prototype of sarah
+sarah.init('Sarah', 1997);
+sarah.calcAge();
+*/
