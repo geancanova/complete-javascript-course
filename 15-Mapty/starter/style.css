@@ -7,6 +7,8 @@
   --color-light--1: #aaa;
   --color-light--2: #ececec;
   --color-light--3: rgb(214, 222, 224);
+  --color-danger--1: #ff4545;
+  --color-danger--2: #ff5353;
 }
 
 * {
@@ -29,7 +31,7 @@ body {
   overscroll-behavior-y: none;
 
   background-color: #fff;
-  padding: 2.5rem;
+  /* padding: 2.5rem; */
 
   display: flex;
 }
@@ -49,10 +51,52 @@ a:visited {
   flex-direction: column;
 }
 
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.sidebar__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.sidebar__btn {
+  background-color: var(--color-danger--1);
+  border: none;
+  border-radius: 5px;
+  color: var(--color-light--2);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all .2s;
+}
+
+.sidebar__btn:hover {
+  background-color: var(--color-danger--2);
+}
+
+.sidebar__sort {
+  padding: 0.5rem 1.1rem;
+  font-family: inherit;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--color-light--3);
+  transition: all 0.2s;
+}
+
+.sidebar__sort:focus {
+  outline: none;
+  background-color: #fff;
+}
+
 .logo {
   height: 5.2rem;
-  align-self: center;
-  margin-bottom: 4rem;
 }
 
 .workouts {
@@ -87,9 +131,55 @@ a:visited {
 .workout__title {
   font-size: 1.7rem;
   font-weight: 600;
-  grid-column: 1 / -1;
+  grid-column: 1 / -2;
 }
 
+.workout__edit {
+  position: relative;
+  text-align: right;
+}
+
+.workout__edit-btn {
+  font-size: 1.8rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  text-align: right;
+}
+
+.workout__options {
+  position: absolute;
+  right: 0;
+  list-style: none;
+  background-color: var(--color-dark--1);
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: none;
+  min-width: 150px;
+  opacity: 1;
+  transition: all .2s ease-out;
+}
+
+.workout__options--hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+.workout__options-item {
+  display: flex;
+  align-items: baseline;
+  font-size: 1.8rem;
+  padding: .5rem 1rem;
+}
+
+.workout__options-icon {
+  font-size: 1.8rem;
+}
+
+.workout__options-text {
+  font-size: 1.5rem;
+  margin-left: .5rem;
+}
 .workout__details {
   display: flex;
   align-items: baseline;

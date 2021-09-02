@@ -31,7 +31,20 @@
   </head>
   <body>
     <div class="sidebar">
-      <img src="logo.png" alt="Logo" class="logo" />
+      <div class="sidebar__header">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+      
+      <div class="sidebar__actions">
+        <select class="sidebar__sort">
+          <option value="">Sort by:</option>
+          <option value="date">date</option>
+          <option value="distance">distance</option>
+          <option value="duration">duration</option>
+          <option value="type">type</option>
+        </select>
+        <button class="sidebar__btn sidebar__btn--delete" title="delete all workouts">Delete all</button>
+      </div>
 
       <ul class="workouts">
         <form class="form hidden">
